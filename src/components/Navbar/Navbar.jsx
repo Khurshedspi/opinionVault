@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   const links = (
     <>
       <li>
@@ -21,8 +23,9 @@ const Navbar = () => {
       </li>
     </>
   );
+  // console.log(user.photoURL)
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 container mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -54,20 +57,32 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <div className="space-x-3">
-          <Link to="/login">
-            <button>LogIn</button>
-          </Link>
-          <Link to="/register">
-            <button>Register</button>
-          </Link>
-        </div>
-
-        {/* <div className="avatar">
-          <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        {user ? (
+          <div className="flex space-x-4">
+            <div className="avatar h-12 w-12">
+              <img
+              className="rounded-full"
+                src={
+                  user
+                    ? user?.photoURL
+                    : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                }
+              />
+            </div>
+            <button onClick={logOut} className="btn btn-primary">
+              Logout
+            </button>
           </div>
-        </div> */}
+        ) : (
+          <div className="space-x-3">
+            <Link to="/login">
+              <button>LogIn</button>
+            </Link>
+            <Link to="/register">
+              <button>Register</button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

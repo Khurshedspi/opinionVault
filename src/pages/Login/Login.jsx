@@ -1,6 +1,39 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../components/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { signInUserWithGoogle, logInUser } = useContext(AuthContext);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    console.log(email, password);
+
+    logInUser(email, password)
+      .then((result) => {
+        toast.success("Successfully Logged In");
+        form.reset(); 
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
+  const handleLoginBtn = () => {
+    signInUserWithGoogle()
+      .then((result) => {
+        toast.success("Successfully Logged In with Google");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-indigo-600 flex justify-center items-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -8,17 +41,14 @@ const Login = () => {
           Login
         </h2>
 
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-600 font-medium mb-2"
-            >
+            <label className="block text-gray-600 font-medium mb-2">
               Email
             </label>
             <input
               type="email"
-              id="email"
+              name="email"
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Enter your email"
@@ -26,15 +56,12 @@ const Login = () => {
           </div>
 
           <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-gray-600 font-medium mb-2"
-            >
+            <label className="block text-gray-600 font-medium mb-2">
               Password
             </label>
             <input
               type="password"
-              id="password"
+              name="password"
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Enter your password"
@@ -50,13 +77,16 @@ const Login = () => {
         </form>
 
         <div className="mt-6 text-center">
-          <button className="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 focus:outline-none">
+          <button
+            onClick={handleLoginBtn}
+            className="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 focus:outline-none"
+          >
             Login with Google
           </button>
         </div>
         <div>
           <p className="text-gray-700">
-            Create an account if you are a new user ?{" "}
+            Create an account if you are a new user?{" "}
             <Link to="/register">
               <span className="text-red-500 font-bold">Register</span>
             </Link>{" "}
