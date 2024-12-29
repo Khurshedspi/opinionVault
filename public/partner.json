@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "name": "Tech Solutions Ltd.",
+      "logo": "https://i.postimg.cc/HLLkBHHL/tech-solution-ltd.jpg",
+      "description": "Providing cutting-edge software solutions for businesses worldwide."
+    },
+    {
+      "id": 2,
+      "name": "Green Energy Co.",
+      "logo": "https://i.postimg.cc/rwjp1sBb/green-energy.avif",
+      "description": "Leading the way in sustainable energy innovations."
+    },
+    {
+      "id": 3,
+      "name": "EduWorld",
+      "logo": "https://i.postimg.cc/tgmCcfCN/eduWorld.avif",
+      "description": "Empowering education through innovative learning tools."
+    }
+  ]  

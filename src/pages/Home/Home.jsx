@@ -1,9 +1,12 @@
-import React from 'react';
+
+import MeetOurPartner from './MeetOurPartner';
+import Slider from './Slider';
 
 const Home = () => {
     return (
         <div>
-            <h3>home here</h3>
+            <Slider></Slider>
+            <MeetOurPartner></MeetOurPartner>
         </div>
     );
 };
