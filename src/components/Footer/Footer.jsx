@@ -1,14 +1,14 @@
 import React from "react";
-import logo from "../../assets/opinion_vault_logo.jpg"
+import logo from "../../assets/opinion_vault_logo.jpg";
 
 const Footer = () => {
   return (
     <footer className="footer footer-center bg-primary text-primary-content p-10">
       <aside>
-        <img className="w-20 rounded-full h-20" src={logo}  />
-     
+        <img className="w-20 rounded-full h-20" src={logo} />
+
         <p className="font-bold">
-         Opinion Vault
+          Opinion Vault
           <br />
           Feel free to comment, We will take your opinion with respect.
         </p>

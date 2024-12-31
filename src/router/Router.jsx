@@ -20,6 +20,20 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+        loader: async () => {
+          const trendingServices = await fetch("/trendingServices.json");
+          const trendingService = await trendingServices.json();
+
+          // const trendingMovie = await fetch("/trendingMovie.json");
+          // const trendingMovieData = await trendingMovie.json();
+
+         
+
+          return {
+            trendingService,
+          
+          };
+        },
       },
       {
         path: "/login",
