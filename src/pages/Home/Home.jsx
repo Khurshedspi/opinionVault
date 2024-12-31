@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import MeetOurPartner from './MeetOurPartner';
 import Slider from './Slider';
 import TrendingServices from '../../components/TrendingServices/TrendingServices';
+import Faqs from './Faqs';
 
 const Home = () => {
     useEffect(() => {
@@ -16,6 +17,7 @@ const Home = () => {
             <Slider></Slider>
             <TrendingServices></TrendingServices>
             <MeetOurPartner></MeetOurPartner>
+            <Faqs></Faqs>
         </div>
     );
 };

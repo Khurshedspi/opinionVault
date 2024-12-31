@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const TrendingServiceCard = ({ trendyService }) => {
   const { title, description, rating, reviews, imgURL } = trendyService;
@@ -26,9 +27,11 @@ const TrendingServiceCard = ({ trendyService }) => {
             </span>
             <span>{reviews} reviews</span>
           </div>
-          <button className="px-4 py-2 bg-indigo-600 text-white text-xs rounded-full hover:bg-indigo-700 transition-all">
-            Learn More
-          </button>
+          <Link to='/services'>
+            <button className="px-4 py-2 bg-indigo-600 text-white text-xs rounded-full hover:bg-indigo-700 transition-all">
+              Learn More
+            </button>
+          </Link>
         </div>
       </div>
     </div>
