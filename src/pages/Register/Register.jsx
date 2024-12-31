@@ -1,11 +1,13 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 // import { AuthContext } from "../../components/AuthProvider/AuthProvider";
 import { AuthContext } from "../../components/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 
 const Register = () => {
   const { signInUserWithGoogle ,createUser,updateUserProfile,setUser} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
   const handleSubmit = async(e) => {
     e.preventDefault();
     const form = e.target;
@@ -32,6 +34,7 @@ const Register = () => {
       const user = result.user;
       toast.success("Account created Successfully");
       form.reset();
+      navigate(location?.state ? location.state : "/");
       // navigate(location?.state ? location.state : "/");
       await updateUserProfile({ displayName: name, photoURL: photo });
       setUser({
@@ -49,6 +52,7 @@ const Register = () => {
   const handleRegisterBtn = () => {
     signInUserWithGoogle().then((result) => {
       toast.success('Successfully Registered')
+      navigate(location?.state ? location.state : "/");
     });
   };
   return (
