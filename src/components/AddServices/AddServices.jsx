@@ -32,7 +32,7 @@ const AddServices = () => {
 
     axios.post('http://localhost:5000/services', serviceData)
     .then(result => {
-      toast.success('data add success')
+      toast.success('Service successfully Added')
       form.reset();
     })
   };
