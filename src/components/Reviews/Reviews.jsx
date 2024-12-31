@@ -4,36 +4,33 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 
 const Reviews = () => {
   const { user } = useContext(AuthContext);
   const [allData, setAllData] = useState([]);
   const [reviewToUpdate, setReviewToUpdate] = useState(null);
 
-
-
   useEffect(() => {
-    const pathTitleMap = {
-      "/reviews": "My Reviews - Opinion Vault",
-    };
-    document.title = pathTitleMap[location.pathname] || "Opinion Vault";
-  }, [location.pathname]);
+    document.title = "My Reviews - Opinion Vault"; 
+  }, []);
 
   // Load user's reviews
   useEffect(() => {
-    const loadServiceDetails = async () => {
+    const loadUserReviews = async () => {
+      if (!user?.email) return; 
       try {
-        const { data } = await axios.get(`http://localhost:5000/userReview`, {
-          params: { email: user?.email }
-        });
+        const { data } = await axios.get(
+          `http://localhost:5000/userReviews/${user?.email}`
+        );
         setAllData(data);
       } catch (error) {
         console.error("Failed to fetch reviews", error);
         toast.error("Failed to load reviews");
       }
     };
-
-    loadServiceDetails();
+    loadUserReviews();
   }, [user?.email]);
 
   // Handle delete review
@@ -49,7 +46,7 @@ const Reviews = () => {
         toast.error("Failed to delete review");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error deleting review:", error);
       toast.error("Failed to delete review");
     }
   };
@@ -66,20 +63,7 @@ const Reviews = () => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        handleDelete(id); // Call delete function
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your review has been deleted.",
-          icon: "success",
-          timer: 1500,
-        });
-      } else {
-        Swal.fire({
-          title: "Cancelled",
-          text: "Your review is safe.",
-          icon: "info",
-          timer: 1500,
-        });
+        handleDelete(id);
       }
     });
   };
@@ -95,61 +79,86 @@ const Reviews = () => {
     }
   };
 
-  // Handle form submission for updating review
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const textReview = form.textReview.value;
-    const rating = form.rating.value;
+    const rating = parseInt(form.rating.value, 10); 
+    const date = form.date.value;
 
-    const updateInfo = { textReview, rating };
+    const updateInfo = { textArea: textReview, rating, date };
 
     try {
-      const response = await axios.put(
+      const { data } = await axios.put(
         `http://localhost:5000/userReview/${reviewToUpdate._id}`,
         updateInfo
       );
 
-      if (response.data.success) {
+      if (data.modifiedCount) {
+        // Updated check for MongoDB response
         toast.success("Review updated successfully");
-        const modal = document.getElementById("my_modal_3");
-        if (modal) {
-          modal.close(); // Close modal after success
-        }
 
-        // Update local data to reflect changes
+        // Close the modal
+        const modal = document.getElementById("my_modal_3");
+        if (modal) modal.close();
+
+        // Update the state with the new review data
         setAllData((prevData) =>
           prevData.map((item) =>
-            item._id === reviewToUpdate._id ? { ...item, textReview, rating } : item
+            item._id === reviewToUpdate._id
+              ? { ...item, ...updateInfo }
+              : item
           )
         );
+
+        setReviewToUpdate(null);
       } else {
-        toast.error("Failed to update review");
+        toast.error("No changes were made to the review.");
       }
     } catch (error) {
-      console.error("Error updating review:", error);
+      console.error("Update error:", error);
       toast.error("Failed to update review");
     }
   };
 
+  console.log(allData);
   return (
     <div className="container mx-auto mt-5">
       <ToastContainer position="top-center" />
-      <h2 className="text-2xl font-bold mb-5 text-center text-blue-700">My Reviews</h2>
+      <h2 className="text-2xl font-bold mb-5 text-center text-blue-700">
+        My Reviews
+      </h2>
 
       {/* Reviews List */}
       <div className="grid grid-cols-1 space-y-5">
         {allData.map((review) => (
-          <div key={review._id} className="card shadow-md p-4 bg-gray-200 text-center border-4 border-blue-400 ">
+          <div
+            key={review._id}
+            className="card shadow-md p-4 bg-gray-200 text-center border-4 border-blue-400"
+          >
             <div className="card-body">
-              <h3 className="text-xl font-bold">{review.serviceTitle}</h3>
-              <p className="text-blue-700">{review.textArea}</p>
-              <p className="text-blue-500">Rating: {review.rating}</p>
+              <h3 className="text-xl font-bold">
+                <span className="font-bold">Title: </span>
+                {review?.title}
+              </h3>
+              <p className="text-blue-700">
+                <span className="font-bold">Text Review: </span>{" "}
+                {review?.textArea}
+              </p>
+              <p className="text-blue-500 flex justify-center items-center gap-2">
+                <span className="font-bold">Rating:</span>
+                <Rating
+                  value={review.rating}
+                  readOnly
+                  style={{ maxWidth: 100 }}
+                />
+                <span>{review?.rating}</span>
+              </p>
             </div>
 
             <div className="flex gap-2 justify-center">
               <button
-                onClick={() => handleUpdate(review._id)}
+                onClick={() => handleUpdate(review?._id)}
                 className="btn btn-sm btn-danger bg-blue-400 border-2 border-white"
               >
                 Update
@@ -175,7 +184,7 @@ const Reviews = () => {
               <input
                 type="text"
                 name="serviceTitle"
-                value={reviewToUpdate?.serviceTitle}
+                value={reviewToUpdate?.title}
                 className="input input-bordered"
                 readOnly
                 required
@@ -185,7 +194,17 @@ const Reviews = () => {
               <label className="label">Text Review</label>
               <textarea
                 name="textReview"
-                defaultValue={reviewToUpdate?.textReview}
+                defaultValue={reviewToUpdate?.textArea}
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">Date</label>
+              <input
+                type="date"
+                name="date"
+                defaultValue={reviewToUpdate?.date}
                 className="input input-bordered"
                 required
               />

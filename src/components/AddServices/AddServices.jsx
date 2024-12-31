@@ -44,7 +44,7 @@ const AddServices = () => {
     })
   };
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto mb-10">
       <h2 className="text-2xl sm:text-3xl font-bold text-center my-6 text-white">
         Add Service
       </h2>

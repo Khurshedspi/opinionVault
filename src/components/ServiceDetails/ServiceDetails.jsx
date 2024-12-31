@@ -40,8 +40,10 @@ const ServiceDetails = () => {
     const form = e.target;
     const textArea = form.textArea.value;
     const date = form.date.value;
+    const title = singleService.title;
     console.log(rating, textArea, date);
     const reviewData = {
+      title,
       rating,
       textArea,
       date,
@@ -107,7 +109,7 @@ const ServiceDetails = () => {
       {/* Review Section */}
       <div className="mt-8">
         <h2 className="text-2xl font-bold text-gray-800">
-          Reviews: {singleService?.reviewCount ? singleService?.reviewCount : 0}
+          Reviews: {allReview.length}
         </h2>
 
         {/* Check if allReview is an array */}

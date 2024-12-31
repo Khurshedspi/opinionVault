@@ -9,18 +9,24 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      <li>
-        <NavLink to="/addServices">Add Service</NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink to="/addServices">Add Service</NavLink>
+        </li>
+      )}
       <li>
         <NavLink to="/services">Services</NavLink>
       </li>
-      <li>
-        <NavLink to="/myServices">My Services</NavLink>
-      </li>
-      <li>
-        <NavLink to="/reviews">My Reviews</NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink to="/myServices">My Services</NavLink>
+        </li>
+      )}
+      {user && (
+        <li>
+          <NavLink to="/reviews">My Reviews</NavLink>
+        </li>
+      )}
     </>
   );
   // console.log(user.photoURL)
@@ -46,7 +52,6 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-        
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[10] mt-3 w-52 p-2 shadow"
           >
             {links}
@@ -62,7 +67,7 @@ const Navbar = () => {
           <div className="flex space-x-4">
             <div className="avatar h-12 w-12">
               <img
-              className="rounded-full"
+                className="rounded-full"
                 src={
                   user
                     ? user?.photoURL
