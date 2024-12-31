@@ -1,10 +1,17 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from './../AuthProvider/AuthProvider';
 
 const AddServices = () => {
   const {user} = useContext(AuthContext);
+
+  useEffect(() => {
+    const pathTitleMap = {
+      "/addServices": "Add Services - Opinion Vault",
+    };
+    document.title = pathTitleMap[location.pathname] || "Opinion Vault";
+  }, [location.pathname]);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;

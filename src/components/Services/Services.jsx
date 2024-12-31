@@ -4,6 +4,14 @@ import ServiceCard from "./ServiceCard";
 
 const Services = () => {
   const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    const pathTitleMap = {
+      "/services": "Services - Opinion Vault",
+    };
+    document.title = pathTitleMap[location.pathname] || "Opinion Vault";
+  }, [location.pathname]);
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/services")

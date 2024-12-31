@@ -9,6 +9,7 @@ import MyServices from "../components/MyServices/MyServices";
 import Reviews from "../components/Reviews/Reviews";
 import ServiceDetails from "../components/ServiceDetails/ServiceDetails";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import PrivateRouter from "../PrivateRouter/PrivateRouter";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/addServices",
-        element: <AddServices></AddServices>,
+        element: (
+          <PrivateRouter>
+            <AddServices></AddServices>
+          </PrivateRouter>
+        ),
       },
       {
         path: "/services",
@@ -38,11 +43,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/myServices",
-        element: <MyServices></MyServices>,
+        element: (
+          <PrivateRouter>
+            <MyServices></MyServices>
+          </PrivateRouter>
+        ),
       },
       {
         path: "/reviews",
-        element: <Reviews></Reviews>,
+        element: (
+          <PrivateRouter>
+            <Reviews></Reviews>
+          </PrivateRouter>
+        ),
       },
       {
         path: "/serviceDetails/:id",

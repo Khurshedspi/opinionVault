@@ -11,6 +11,13 @@ const MyServices = () => {
   const [serviceToUpdate, setServiceToUpdate] = useState(null);
 
   useEffect(() => {
+    const pathTitleMap = {
+      "/myServices": "My Services - Opinion Vault",
+    };
+    document.title = pathTitleMap[location.pathname] || "Opinion Vault";
+  }, [location.pathname]);
+
+  useEffect(() => {
     const loadServiceDetails = async () => {
       try {
         const { data } = await axios.get(`http://localhost:5000/services`);
