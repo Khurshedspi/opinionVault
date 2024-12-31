@@ -1,0 +1,56 @@
+[
+  {
+    "id": "201",
+    "title": "Premium Web Development Services",
+    "description": "Top-notch websites built with modern technologies and best practices.",
+    "rating": 4.9,
+    "reviews": 245,
+    "category": "IT Services",
+    "imgURL": "https://i.postimg.cc/vBwKv5Ct/webdevelopment.avif"
+  },
+  {
+    "id": "202",
+    "title": "Creative Graphic Design",
+    "description": "Engaging and professional graphic designs to elevate your brand.",
+    "rating": 4.8,
+    "reviews": 190,
+    "category": "Design Services",
+    "imgURL": "https://i.postimg.cc/mZNv86Lz/graphics-Design.jpg"
+  },
+  {
+    "id": "203",
+    "title": "Virtual Assistant Services",
+    "description": "Reliable and efficient support for your administrative needs.",
+    "rating": 4.7,
+    "reviews": 160,
+    "category": "Business Services",
+    "imgURL": "https://i.postimg.cc/VkTpdxRT/virtual-Services.jpg"
+  },
+  {
+    "id": "204",
+    "title": "Professional Photography",
+    "description": "Capture your best moments with our expert photographers.",
+    "rating": 4.9,
+    "reviews": 300,
+    "category": "Photography Services",
+    "imgURL": "https://i.postimg.cc/4xnj4fzV/photograpy.jpg"
+  },
+  {
+    "id": "205",
+    "title": "Advanced SEO Optimization",
+    "description": "Rank higher on search engines with proven SEO techniques.",
+    "rating": 4.8,
+    "reviews": 210,
+    "category": "Marketing Services",
+    "imgURL": "https://i.postimg.cc/k5bZ8TY5/seo-Services.avif"
+  },
+  {
+    "id": "206",
+    "title": "Custom Mobile App Development",
+    "description": "Feature-rich apps designed for both Android and iOS platforms.",
+    "rating": 4.9,
+    "reviews": 275,
+    "category": "IT Services",
+    "imgURL": "https://i.postimg.cc/V69VZd8Q/app-Development.avif"
+  }
+]
