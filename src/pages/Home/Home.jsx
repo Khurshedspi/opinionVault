@@ -4,6 +4,7 @@ import MeetOurPartner from './MeetOurPartner';
 import Slider from './Slider';
 import TrendingServices from '../../components/TrendingServices/TrendingServices';
 import Faqs from './Faqs';
+import FeaturedServices from './FeaturedServices';
 
 const Home = () => {
     useEffect(() => {
@@ -15,6 +16,7 @@ const Home = () => {
     return (
         <div>
             <Slider></Slider>
+            <FeaturedServices></FeaturedServices>
             <TrendingServices></TrendingServices>
             <MeetOurPartner></MeetOurPartner>
             <Faqs></Faqs>

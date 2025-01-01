@@ -1,11 +1,14 @@
-import React from "react";
+import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 
 const TrendingServiceCard = ({ trendyService }) => {
   const { title, description, rating, reviews, imgURL } = trendyService;
+  console.log(trendyService);
 
   return (
-    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all ease-in-out duration-300">
+    <div
+      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all ease-in-out duration-300"
+    >
       <img
         src={imgURL}
         alt={title}
@@ -25,9 +28,12 @@ const TrendingServiceCard = ({ trendyService }) => {
               {"★".repeat(Math.floor(rating))}{" "}
               {"☆".repeat(5 - Math.floor(rating))}
             </span>
-            <span>{reviews} reviews</span>
+            <span className="ml-2">
+              <CountUp start={0} end={reviews} duration={10} separator="," />
+              reviews
+            </span>
           </div>
-          <Link to='/services'>
+          <Link to="/services">
             <button className="px-4 py-2 bg-indigo-600 text-white text-xs rounded-full hover:bg-indigo-700 transition-all">
               Learn More
             </button>
