@@ -53,14 +53,14 @@ const AuthProvider = ({ children }) => {
         setLoading(false);
 
         const { data } = await axios.post(
-          `http://localhost:5000/jwt`,
+          `https://opinion-vault-server.vercel.app/jwt`,
           { email: currentUser?.email },
           { withCredentials: true }
         );
-        console.log(data);
+        // console.log(data);
       } else {
         setUser(currentUser);
-        const { data } = await axios.get(`http://localhost:5000/logout`, {
+        const { data } = await axios.get(`https://opinion-vault-server.vercel.app/logout`, {
           withCredentials: true,
         });
       }

@@ -24,11 +24,11 @@ const Reviews = () => {
       if (!user?.email) return; 
       try {
         const { data } = await axiosSecure.get(
-          `http://localhost:5000/userReviews/${user?.email}`
+          `https://opinion-vault-server.vercel.app/userReviews/${user?.email}`
         );
         setAllData(data);
       } catch (error) {
-        console.error("Failed to fetch reviews", error);
+        // console.error("Failed to fetch reviews", error);
         toast.error("Failed to load reviews");
       }
     };
@@ -38,8 +38,8 @@ const Reviews = () => {
   // Handle delete review
   const handleDelete = async (id) => {
     try {
-      const { data } = await axios.delete(
-        `http://localhost:5000/userReview/${id}`
+      const { data } = await axiosSecure.delete(
+        `https://opinion-vault-server.vercel.app/userReview/${id}`
       );
       if (data.deletedCount > 0) {
         setAllData((prevData) => prevData.filter((item) => item._id !== id));
@@ -48,7 +48,7 @@ const Reviews = () => {
         toast.error("Failed to delete review");
       }
     } catch (error) {
-      console.error("Error deleting review:", error);
+      // console.error("Error deleting review:", error);
       toast.error("Failed to delete review");
     }
   };
@@ -91,8 +91,8 @@ const Reviews = () => {
     const updateInfo = { textArea: textReview, rating, date };
 
     try {
-      const { data } = await axios.put(
-        `http://localhost:5000/userReview/${reviewToUpdate._id}`,
+      const { data } = await axiosSecure.put(
+        `https://opinion-vault-server.vercel.app/userReview/${reviewToUpdate._id}`,
         updateInfo
       );
 
@@ -118,14 +118,14 @@ const Reviews = () => {
         toast.error("No changes were made to the review.");
       }
     } catch (error) {
-      console.error("Update error:", error);
+      // console.error("Update error:", error);
       toast.error("Failed to update review");
     }
   };
 
-  console.log(allData);
+  // console.log(allData);
   return (
-    <div className="container mx-auto mt-5">
+    <div className="container mx-auto mt-5 mb-10">
       <ToastContainer position="top-center" />
       <h2 className="text-2xl font-bold mb-5 text-center text-blue-700">
         My Reviews

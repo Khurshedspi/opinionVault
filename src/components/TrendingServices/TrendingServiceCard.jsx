@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const TrendingServiceCard = ({ trendyService }) => {
   const { title, description, rating, reviews, imgURL } = trendyService;
-  console.log(trendyService);
+  // console.log(trendyService);
 
   return (
     <div

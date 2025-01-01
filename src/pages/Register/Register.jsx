@@ -35,7 +35,6 @@ const Register = () => {
       toast.success("Account created Successfully");
       form.reset();
       navigate(location?.state ? location.state : "/");
-      // navigate(location?.state ? location.state : "/");
       await updateUserProfile({ displayName: name, photoURL: photo });
       setUser({
         ...user,
@@ -46,7 +45,7 @@ const Register = () => {
       toast.error(error.message || "Something went wrong");
     }
 
-    console.log(name, email, photo, password);
+    // console.log(name, email, photo, password);
   };
 
   const handleRegisterBtn = () => {

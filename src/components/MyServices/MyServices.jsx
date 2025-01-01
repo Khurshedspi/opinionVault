@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { i } from "framer-motion/client";
 
 const MyServices = () => {
   const { user } = useContext(AuthContext);
@@ -12,27 +13,36 @@ const MyServices = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
+  const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    const pathTitleMap = {
+      "/myServices": "My Services - Opinion Vault",
+    };
+    document.title = pathTitleMap[location.pathname] || "Opinion Vault";
+  }, [location?.pathname]);
   // Load services data
   useEffect(() => {
     const loadServiceDetails = async () => {
       try {
-        const { data } = await axiosSecure.get(`http://localhost:5000/services`);
+        const { data } = await axiosSecure.get(
+          `https://opinion-vault-server.vercel.app/services?search=${search}`
+        );
         setAllData(data);
       } catch (error) {
-        console.error("Failed to fetch service details", error);
+        // console.error("Failed to fetch service details", error);
         toast.error("Failed to load services");
       }
     };
 
     loadServiceDetails();
-  }, [user?.email, axiosSecure]);
+  }, [user?.email, axiosSecure, search]);
 
   // Delete service
   const handleDelete = async (id) => {
     try {
-      const { data } = await axios.delete(
-        `http://localhost:5000/services/${id}`
+      const { data } = await axiosSecure.delete(
+        `https://opinion-vault-server.vercel.app/services/${id}`
       );
       if (data.deletedCount > 0) {
         setAllData((prevData) => prevData.filter((item) => item._id !== id));
@@ -41,7 +51,7 @@ const MyServices = () => {
         toast.error("Failed to delete the service");
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       toast.error(err.message);
     }
   };
@@ -67,7 +77,7 @@ const MyServices = () => {
 
   // Open modal and set selected service
   const updateForm = (service) => {
-    setSelectedService(service); 
+    setSelectedService(service);
     setIsModalOpen(true);
   };
 
@@ -77,14 +87,14 @@ const MyServices = () => {
     setIsModalOpen(false);
   };
 
-  console.log(selectedService);
+  // console.log(selectedService);
 
   // Update service
   const handleUpdate = async () => {
     try {
-      const { data } = await axios.put(
-        `http://localhost:5000/services/${selectedService._id}`,
-        {title: selectedService.title, category: selectedService.category}
+      const { data } = await axiosSecure.put(
+        `https://opinion-vault-server.vercel.app/services/${selectedService._id}`,
+        { title: selectedService.title, category: selectedService.category , description: selectedService.description, price: selectedService.price, date: selectedService.date, imgURL: selectedService.imgURL}
       );
 
       if (data.modifiedCount > 0) {
@@ -94,20 +104,32 @@ const MyServices = () => {
           )
         );
         toast.success("Service updated successfully");
-        closeModal(); 
+        closeModal();
       } else {
         toast.warn("No changes were made");
       }
     } catch (error) {
-      console.error("Error updating service:", error);
+      // console.error("Error updating service:", error);
       toast.error("Error updating service");
     }
   };
 
+  // console.log(allData);
+
   return (
     <div className="container mx-auto mt-5">
       <ToastContainer position="top-center" />
-      <h2 className="text-2xl font-bold mb-5">My Services</h2>
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-bold mb-5">My Services: {allData.length}</h2>
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            className="p-2 rounded-xl font-bold border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-500"
+            placeholder="Search by category"
+            onKeyUp={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      </div>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -171,6 +193,20 @@ const MyServices = () => {
                   })
                 }
               />
+
+              <label className="block">Image URL</label>
+              <input
+                type="url"
+                className="input input-bordered w-full"
+                value={selectedService.imgURL || ""}
+                onChange={(e) =>
+                  setSelectedService({
+                    ...selectedService,
+                    imgURL: e.target.value,
+                  })
+                }
+              />
+
               <label className="block mt-4">Category</label>
               <input
                 type="text"
@@ -183,12 +219,58 @@ const MyServices = () => {
                   })
                 }
               />
+              <label className="block mt-4">Description</label>
+              <input
+                type="text"
+                className="input input-bordered w-full"
+                value={selectedService.description || ""}
+                onChange={(e) =>
+                  setSelectedService({
+                    ...selectedService,
+                    description: e.target.value,
+                  })
+                }
+              />
+
+              <label className="block mt-4">Price</label>
+              <input
+                type="text"
+                className="input input-bordered w-full"
+                value={selectedService.price || ""}
+                onChange={(e) =>
+                  setSelectedService({
+                    ...selectedService,
+                    price: e.target.value,
+                  })
+                }
+              />
+
+              <label className="block mt-4">Date</label>
+              <input
+                type="date"
+                className="input input-bordered w-full"
+                value={selectedService.date || ""}
+                onChange={(e) =>
+                  setSelectedService({
+                    ...selectedService,
+                    date: e.target.value,
+                  })
+                }
+              />
+
+              <label className="block mt-4">Email</label>
+              <input
+                type="text"
+                className="input input-bordered w-full"
+                value={selectedService.email || ""}
+                readOnly
+              />
             </div>
             <div className="modal-action">
-              <button className="btn" onClick={handleUpdate}>
+              <button className="btn btn-primary" onClick={handleUpdate}>
                 Save
               </button>
-              <button className="btn btn-ghost" onClick={closeModal}>
+              <button className="btn btn-error" onClick={closeModal}>
                 Cancel
               </button>
             </div>

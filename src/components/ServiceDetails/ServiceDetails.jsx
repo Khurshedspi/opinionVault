@@ -6,13 +6,15 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ServiceDetails = () => {
   const [singleService, setSingleService] = useState({});
   const [allReview, setAllReview] = useState([]);
   const [rating, setRating] = useState(0);
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const axiosSecure = useAxiosSecure();
+  // console.log(user);
 
   // displayName email photoURL
 
@@ -23,11 +25,11 @@ const ServiceDetails = () => {
     const loadServiceDetails = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/services/${params.id}`
+          `https://opinion-vault-server.vercel.app/services/${params.id}`
         );
         setSingleService(data);
       } catch (error) {
-        console.error("Failed to fetch service details", error);
+        // console.error("Failed to fetch service details", error);
       }
     };
 
@@ -41,7 +43,7 @@ const ServiceDetails = () => {
     const textArea = form.textArea.value;
     const date = form.date.value;
     const title = singleService.title;
-    console.log(rating, textArea, date);
+    // console.log(rating, textArea, date);
     const reviewData = {
       title,
       rating,
@@ -53,15 +55,15 @@ const ServiceDetails = () => {
       reviewId: params.id,
     };
     try {
-      const { data } = await axios.post(
-        `http://localhost:5000/userReview`,
+      const { data } = await axiosSecure.post(
+        `https://opinion-vault-server.vercel.app/userReview`,
         reviewData
       );
-      console.log(data);
+      // console.log(data);
       toast.success("Review Add SuccessFull");
       form.reset();
     } catch (error) {
-      console.error("Failed to add review", error);
+      // console.error("Failed to add review", error);
     }
   };
 
@@ -69,18 +71,18 @@ const ServiceDetails = () => {
     const loadServiceDetails = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/userReview/${params.id}`
+          `https://opinion-vault-server.vercel.app/userReview/${params.id}`
         );
         setAllReview(data);
       } catch (error) {
-        console.error("Failed to fetch service details", error);
+        // console.error("Failed to fetch service details", error);
       }
     };
 
     loadServiceDetails();
   }, [params.id]);
 
-  console.log(allReview);
+  // console.log(allReview);
 
   return (
     <div className="container mx-auto p-6">

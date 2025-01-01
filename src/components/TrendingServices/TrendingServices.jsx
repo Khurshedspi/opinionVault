@@ -4,7 +4,7 @@ import TrendingServiceCard from "./TrendingServiceCard";
 
 const TrendingServices = () => {
   const { trendingService } = useLoaderData();
-  console.log(trendingService);
+  // console.log(trendingService);
   return (
     <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16">
       <div className="container mx-auto px-4 text-center">

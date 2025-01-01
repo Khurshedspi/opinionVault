@@ -11,17 +11,17 @@ const FeaturedServices = () => {
     const loadUserReviews = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/userReviewData`
+          `https://opinion-vault-server.vercel.app/userReviewData`
         );
         setAllData(data);
       } catch (error) {
-        console.error("Failed to fetch reviews", error);
+        // console.error("Failed to fetch reviews", error);
         toast.error("Failed to load reviews");
       }
     };
     loadUserReviews();
   }, [axiosSecure]);
-  console.log(allData);
+  // console.log(allData);
   return <div className="container mx-auto mb-10">
     <h1 className="text-2xl lg:text-4xl font-bold text-center mt-12 mb-10 ">Featured Services</h1>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

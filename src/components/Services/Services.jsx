@@ -15,13 +15,13 @@ const Services = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/services?titleSearch=${search}`)
+      .get(`https://opinion-vault-server.vercel.app/services?titleSearch=${search}`)
       .then((res) => setServices(res.data));
     // setServices(data);
   }, [search]);
-  console.log(services);
+  // console.log(services);
   return (
-    <div className="container mx-auto mt-5">
+    <div className="container mx-auto mt-5 mb-10">
       <div className="mb-8 flex items-center justify-center space-x-2">
         <input
           type="text"

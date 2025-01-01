@@ -41,7 +41,7 @@ const Slider = () => {
               Discover amazing features and content. Dive into an incredible
               journey with us.
             </p>
-            <Link to="/allVault">
+            <Link to="/services">
               <button className="mt-6 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg shadow-lg">
                 Explore Now
               </button>
@@ -61,7 +61,7 @@ const Slider = () => {
               Explore our features and start your adventure. Connect with our
               amazing community.
             </p>
-            <Link to="/allVault">
+            <Link to="/services">
               <button className="mt-6 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg shadow-lg">
                 Explore Now
               </button>
@@ -81,7 +81,7 @@ const Slider = () => {
               Start your journey with our platform. Experience the best of what
               we offer.
             </p>
-            <Link to="/allVault">
+            <Link to="/services">
               <button className="mt-6 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg shadow-lg">
                 Explore Now
               </button>

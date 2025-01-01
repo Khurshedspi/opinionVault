@@ -2,9 +2,11 @@ import axios from "axios";
 import { useContext, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from './../AuthProvider/AuthProvider';
+import { useNavigate } from "react-router-dom";
 
 const AddServices = () => {
   const {user} = useContext(AuthContext);
+  const navigate= useNavigate();
 
   useEffect(() => {
     const pathTitleMap = {
@@ -23,7 +25,7 @@ const AddServices = () => {
     const description = form.description.value;
     const category = form.category.value;
     const price = form.price.value;
-    console.log(date, imgURL, title, name, webURL, description, category, price);
+    // console.log(date, imgURL, title, name, webURL, description, category, price);
     const serviceData = {
       date,
       imgURL,
@@ -37,8 +39,9 @@ const AddServices = () => {
     };
 
 
-    axios.post('http://localhost:5000/services', serviceData)
+    axios.post('https://opinion-vault-server.vercel.app/services', serviceData)
     .then(result => {
+      navigate('/services')
       toast.success('Service successfully Added')
       form.reset();
     })
@@ -97,13 +100,13 @@ const AddServices = () => {
               className="input w-full input-bordered"
             />
           </div>
-          <div className="mt-4">
+          <div>
             <label className="label">
               <strong className="label-text text-white">Description</strong>
             </label>
             <textarea
               name="description"
-              className="w-full p-3 rounded-xl h-20 sm:h-20"
+              className="w-full p-3 rounded-xl h-20 sm:h-20  border-2 border-gray-200 rounded-xl"
               placeholder="Description Here"
             ></textarea>
           </div>
