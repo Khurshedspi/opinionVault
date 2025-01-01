@@ -75,7 +75,7 @@ const Navbar = () => {
                 }
               />
             </div>
-            <button onClick={logOut} className="btn btn-primary">
+            <button onClick={async() =>await logOut()} className="btn btn-primary">
               Logout
             </button>
           </div>

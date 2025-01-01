@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 import { Rating } from "@smastrom/react-rating";
@@ -14,6 +14,7 @@ const ServiceDetails = () => {
   const [rating, setRating] = useState(0);
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   // console.log(user);
 
   // displayName email photoURL
@@ -61,6 +62,7 @@ const ServiceDetails = () => {
       );
       // console.log(data);
       toast.success("Review Add SuccessFull");
+      navigate('/reviews')
       form.reset();
     } catch (error) {
       // console.error("Failed to add review", error);

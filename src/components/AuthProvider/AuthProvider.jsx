@@ -60,11 +60,11 @@ const AuthProvider = ({ children }) => {
         // console.log(data);
       } else {
         setUser(currentUser);
-        const { data } = await axios.get(`https://opinion-vault-server.vercel.app/logout`, {
+        const { data } = await axios.post(`https://opinion-vault-server.vercel.app/logout`,{}, {
           withCredentials: true,
         });
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
