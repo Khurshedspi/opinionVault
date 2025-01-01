@@ -1,4 +1,4 @@
-<!-- # Opinion Vault🗣️
+# Opinion Vault🗣️
 **Speak openly, all your opinions are welcome.**
 ## Project Overview
 Welcome to Opinion Vault!
@@ -36,7 +36,7 @@ Dive in, and let your voice shape the community. Together, let’s build a vault
 - ### Netlify: For deployment and hosting with a custom domain only for client side.
 - ### Vercel: For deployment and hosting with a custom domain only for server side.
 
-🌐 [Visit the Website](https://movie-portal-b10-a10.netlify.app/)
+🌐 [Visit the Website](https://opinion-vault-a11.netlify.app)
 
 
-**Thanks a lot for visit my site** -->
+**Thanks a lot for visit my site**
