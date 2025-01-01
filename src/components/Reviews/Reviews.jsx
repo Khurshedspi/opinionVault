@@ -6,11 +6,13 @@ import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Reviews = () => {
   const { user } = useContext(AuthContext);
   const [allData, setAllData] = useState([]);
   const [reviewToUpdate, setReviewToUpdate] = useState(null);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     document.title = "My Reviews - Opinion Vault"; 
@@ -21,7 +23,7 @@ const Reviews = () => {
     const loadUserReviews = async () => {
       if (!user?.email) return; 
       try {
-        const { data } = await axios.get(
+        const { data } = await axiosSecure.get(
           `http://localhost:5000/userReviews/${user?.email}`
         );
         setAllData(data);
@@ -31,7 +33,7 @@ const Reviews = () => {
       }
     };
     loadUserReviews();
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
 
   // Handle delete review
   const handleDelete = async (id) => {
